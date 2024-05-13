@@ -1,3 +1,8 @@
+HISTFILE=$ZDOTDIR/.history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt appendhistory
+
 alias fuck='sudo $(fc -ln -1)'
 
 if type starship > /dev/null; then
