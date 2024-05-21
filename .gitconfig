@@ -6,3 +6,10 @@
 	defaultbranch = main
 [pull]
 	rebase = false
+[alias]
+	forgot = commit --amend --no-edit
+        amend = commit --amend
+	st = status
+	co = checkout
+	cm = commit -m
+	aa = add -A
