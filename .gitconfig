@@ -5,7 +5,7 @@
 [init]
 	defaultbranch = main
 [pull]
-	rebase = false
+	rebase = true
 [alias]
 	forgot = commit --amend --no-edit
         amend = commit --amend
@@ -13,3 +13,4 @@
 	co = checkout
 	cm = commit -m
 	aa = add -A
+	l = log --oneline
