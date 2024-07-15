@@ -29,8 +29,10 @@ bindkey "^[[3;5~" kill-word
 alias docker_up="docker compose up --build"
 alias docker_dev="docker compose -f compose.yaml -f compose.dev.yaml up --build"
 
-if [[ -d ~/.java/ ]]; then
+export JAVA_ROOT=~/.java
+if [[ -d $JAVA_ROOT ]]; then
 	export JAVA_VERSION=22.0.1;
-	export JAVA_HOME=~/.java/jdk-$JAVA_VERSION;
-	export PATH=$PATH:$JAVA_HOME/bin/;
+	export JAVA_HOME=$JAVA_ROOT/jdk-$JAVA_VERSION;
+	export MAVEN_VERSION=3.9.8;
+	export PATH=$PATH:$JAVA_HOME/bin:$JAVA_ROOT/apache-maven-$MAVEN_VERSION/bin;
 fi
