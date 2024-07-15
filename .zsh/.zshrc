@@ -28,3 +28,9 @@ bindkey "^[[3;5~" kill-word
 
 alias docker_up="docker compose up --build"
 alias docker_dev="docker compose -f compose.yaml -f compose.dev.yaml up --build"
+
+if [[ -d ~/.java/ ]]; then
+	export JAVA_VERSION=22.0.1;
+	export JAVA_HOME=~/.java/jdk-$JAVA_VERSION;
+	export PATH=$PATH:$JAVA_HOME/bin/;
+fi
