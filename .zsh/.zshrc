@@ -48,7 +48,3 @@ fi
 if [[ -f "/home/lesar/.ghcup/env" ]]; then
 	 . "/home/lesar/.ghcup/env"; # ghcup-env
 fi
-
-if [[ -d "/home/lesar/.texlive/2024/bin/x86_64-linux" ]]; then
-	export PATH=$PATH:/home/lesar/.texlive/2024/bin/x86_64-linux;
-fi

@@ -14,3 +14,5 @@
 	cm = commit -m
 	aa = add -A
 	l = log --oneline
+[advice]
+	detachedHead = false
