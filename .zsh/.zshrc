@@ -15,6 +15,7 @@ if type starship > /dev/null; then
 fi
 
 if type eza > /dev/null; then
+	alias ls="eza";
 	alias l="eza -la";
 	alias la="eza -a";
 else
