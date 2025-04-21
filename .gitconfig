@@ -1,7 +1,7 @@
 # This is Git's per-user configuration file.
 [user]
-	name = LeSaR
-	email = ilkov2006@gmail.com
+	name = Laysar
+	email = laysar.main@gmail.com
 [init]
 	defaultbranch = main
 [pull]

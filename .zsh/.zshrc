@@ -18,13 +18,11 @@ if type eza > /dev/null; then
 	alias ls="eza";
 	alias l="eza -la";
 	alias la="eza -a";
+	alias ll="eza -laF";
 else
 	alias l="ls -la";
 	alias la="ls -a";
-fi
-
-if type bat > /dev/null; then
-	alias cat="bat";
+	alias ll="ls -laF";
 fi
 
 bindkey "^[[1;5C" forward-word
@@ -49,3 +47,7 @@ fi
 if [[ -f "/home/lesar/.ghcup/env" ]]; then
 	 . "/home/lesar/.ghcup/env"; # ghcup-env
 fi
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
