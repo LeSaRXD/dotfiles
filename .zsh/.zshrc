@@ -57,3 +57,6 @@ if [ -d "$FNM_PATH" ]; then
   export PATH="/home/lesar/.local/share/fnm:$PATH"
   eval "`fnm env`"
 fi
+
+export EDITOR=nvim
+export GIT_EDITOR=nvim

@@ -8,7 +8,7 @@
 	rebase = true
 [alias]
 	forgot = commit --amend --no-edit
-        amend = commit --amend
+	amend = commit --amend
 	st = status
 	co = checkout
 	cm = commit -m
@@ -16,3 +16,5 @@
 	l = log --oneline
 [advice]
 	detachedHead = false
+[core]
+	editor = nvim
