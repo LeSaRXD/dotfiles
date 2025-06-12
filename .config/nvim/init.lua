@@ -7,6 +7,10 @@ vim.g.have_nerd_font = true
 vim.o.tabstop = 2
 vim.o.shiftwidth = 2
 
+-- Disable default styles to enforce tabs instead of spaces
+vim.g.rust_recommended_style = false
+vim.g.python_recommended_style = false
+
 -- Make line numbers default
 vim.o.number = true
 vim.o.relativenumber = true
@@ -78,7 +82,13 @@ vim.keymap.set("n", "<up>", '<cmd>echo "Use k to move!"<CR>')
 vim.keymap.set("n", "<down>", '<cmd>echo "Use j to move!"<CR>')
 
 -- Neotree keybinds
-vim.keymap.set("n", "<C-b>", "<cmd>Neotree toggle<CR>", { desc = "Toggle file tree" })
+vim.keymap.set("n", "<leader>tf", "<cmd>Neotree toggle<CR>", { desc = "[T]oggle [F]ile Tree" })
+vim.keymap.set("n", "<leader>tt", "<cmd>ToggleTerm<CR>", { desc = "[T]oggle [T]erminal" })
+
+-- Custom extensions
+local coderunner = require("extensions.Coderunner")
+vim.keymap.set("n", "<leader>re", coderunner.run_code, { desc = "[R]unner [E]xecute code" })
+vim.keymap.set("n", "<leader>rt", coderunner.test_code, { desc = "[R]unner [T]est code" })
 
 -- Lazy.nvim setup
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"

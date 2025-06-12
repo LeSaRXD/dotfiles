@@ -21,7 +21,12 @@ return {
 	--- @type blink.cmp.Config
 	opts = {
 		keymap = {
-			preset = "super-tab",
+			preset = "default",
+			["C-y"] = { "accept" },
+			["<Tab>"] = { "select_next", "fallback" },
+			["<S-Tab>"] = { "select_prev", "fallback" },
+			["<Down>"] = { "select_next", "fallback" },
+			["<Up>"] = { "select_prev", "fallback" },
 		},
 
 		appearance = {

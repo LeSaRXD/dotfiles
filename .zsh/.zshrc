@@ -58,5 +58,8 @@ if [ -d "$FNM_PATH" ]; then
   eval "`fnm env`"
 fi
 
+source $HOME/.local/bin/env
+
 export EDITOR=nvim
 export GIT_EDITOR=nvim
+export GODOT4_BIN=$HOME/godot-4_4_1
