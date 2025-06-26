@@ -114,6 +114,7 @@ return {
 					map("<leader>th", function()
 						vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
 					end, "[T]oggle Inlay [H]ints")
+					vim.lsp.inlay_hint.enable(true)
 				end
 			end,
 		})
@@ -150,7 +151,6 @@ return {
 		local css_cap = vim.lsp.protocol.make_client_capabilities()
 		css_cap.textDocument.completion.completionItem.snippetSupport = true
 		local servers = {
-			rust_analyzer = {},
 			ts_ls = {},
 			cssls = {
 				capabilities = css_cap,

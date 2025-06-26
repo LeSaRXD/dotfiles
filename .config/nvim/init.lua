@@ -85,6 +85,10 @@ vim.keymap.set("n", "<down>", '<cmd>echo "Use j to move!"<CR>')
 vim.keymap.set("n", "<leader>tf", "<cmd>Neotree toggle<CR>", { desc = "[T]oggle [F]ile Tree" })
 vim.keymap.set("n", "<leader>tt", "<cmd>ToggleTerm<CR>", { desc = "[T]oggle [T]erminal" })
 
+-- Adding newlines without entering edit mode with (shift) enter
+vim.keymap.set("n", "<CR>", "m`o<Esc>``")
+vim.keymap.set("n", "<S-CR>", "m`O<Esc>``")
+
 -- Custom extensions
 local coderunner = require("extensions.Coderunner")
 vim.keymap.set("n", "<leader>re", coderunner.run_code, { desc = "[R]unner [E]xecute code" })

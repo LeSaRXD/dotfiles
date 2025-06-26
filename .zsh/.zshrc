@@ -8,6 +8,8 @@ setopt hist_ignore_dups
 setopt hist_ignore_all_dups
 setopt hist_save_no_dups
 
+set -o vi
+
 alias fuck='sudo $(fc -ln -1)'
 
 if type starship > /dev/null; then
