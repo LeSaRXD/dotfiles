@@ -151,7 +151,6 @@ return {
 		local css_cap = vim.lsp.protocol.make_client_capabilities()
 		css_cap.textDocument.completion.completionItem.snippetSupport = true
 		local servers = {
-			ts_ls = {},
 			cssls = {
 				capabilities = css_cap,
 			},

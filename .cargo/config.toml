@@ -1,1 +1,4 @@
 net.git-fetch-with-cli = true
+
+[alias]
+wx = "watch -c -x run"

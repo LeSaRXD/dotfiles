@@ -5,7 +5,7 @@ local fns = {
 }
 
 local function cmd(index)
-	local cwd = vim.fn.getcwd() .. "/" .. vim.fn.expand("%:p:."):match("^(.*)/")
+	local cwd = vim.fn.getcwd()
 	local fileext = vim.fn.expand("%"):match("%.(.+)$") or ""
 	local fn = fns[fileext]
 

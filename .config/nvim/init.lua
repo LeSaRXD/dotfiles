@@ -6,6 +6,8 @@ vim.g.have_nerd_font = true
 -- Tab size 2
 vim.o.tabstop = 2
 vim.o.shiftwidth = 2
+vim.o.softtabstop = 0
+vim.o.expandtab = false
 
 -- Disable default styles to enforce tabs instead of spaces
 vim.g.rust_recommended_style = false
@@ -60,6 +62,29 @@ vim.o.scrolloff = 7
 -- Confirmation messages
 vim.o.confirm = true
 
+-- Folding and indent
+vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
+vim.opt.fillchars:append({ fold = " " })
+
+vim.api.nvim_create_autocmd({ "FileType" }, {
+	callback = function()
+		vim.opt.foldtext = ""
+		-- check if treesitter has parser
+		if require("nvim-treesitter.parsers").has_parser() then
+			-- use treesitter folding
+			vim.opt.foldmethod = "expr"
+			vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+		else
+			-- use alternative foldmethod
+			vim.opt.foldmethod = "syntax"
+		end
+	end,
+})
+
+-- File type mappings
+vim.filetype.add({ extensions = { mcfunction = "conf" } })
+
 -- Keymaps
 
 -- Rebind move half page up/down to ctrl+J/K to match j and k
@@ -84,10 +109,6 @@ vim.keymap.set("n", "<down>", '<cmd>echo "Use j to move!"<CR>')
 -- Neotree keybinds
 vim.keymap.set("n", "<leader>tf", "<cmd>Neotree toggle<CR>", { desc = "[T]oggle [F]ile Tree" })
 vim.keymap.set("n", "<leader>tt", "<cmd>ToggleTerm<CR>", { desc = "[T]oggle [T]erminal" })
-
--- Adding newlines without entering edit mode with (shift) enter
-vim.keymap.set("n", "<CR>", "m`o<Esc>``")
-vim.keymap.set("n", "<S-CR>", "m`O<Esc>``")
 
 -- Custom extensions
 local coderunner = require("extensions.Coderunner")
@@ -132,4 +153,4 @@ require("lazy").setup({
 	},
 })
 
--- vim: ts=2 sts=2 sw=2 et
+-- vim: ts=2 sts=2 sw=2 net
