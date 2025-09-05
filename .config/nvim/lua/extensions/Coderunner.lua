@@ -2,6 +2,7 @@ local M = {}
 
 local fns = {
 	["rs"] = { "cargo run", "cargo test" },
+	["java"] = { "mvn clean -q && mvn package -q && java -jar target/*.jar", "" },
 }
 
 local function cmd(index)

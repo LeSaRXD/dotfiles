@@ -106,7 +106,7 @@ vim.keymap.set("n", "<right>", '<cmd>echo "Use l to move!"<CR>')
 vim.keymap.set("n", "<up>", '<cmd>echo "Use k to move!"<CR>')
 vim.keymap.set("n", "<down>", '<cmd>echo "Use j to move!"<CR>')
 
--- Neotree keybinds
+-- Toggle keybinds
 vim.keymap.set("n", "<leader>tf", "<cmd>Neotree toggle<CR>", { desc = "[T]oggle [F]ile Tree" })
 vim.keymap.set("n", "<leader>tt", "<cmd>ToggleTerm<CR>", { desc = "[T]oggle [T]erminal" })
 
