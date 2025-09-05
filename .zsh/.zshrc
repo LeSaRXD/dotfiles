@@ -45,6 +45,8 @@ if [[ -d $JAVA_ROOT ]]; then
 	export MAVEN_VERSION=3.9.8;
 	export PATH=$PATH:$JAVA_HOME/bin:$JAVA_ROOT/apache-maven-$MAVEN_VERSION/bin;
 fi
+[ -d "$HOME/.maven/bin" ] && export PATH=$PATH:"$HOME/.maven/bin"
+[ -d "$HOME/.jdtls/bin" ] && export PATH=$PATH:"$HOME/.jdtls/bin"
 
 if [[ -f "/home/lesar/.ghcup/env" ]]; then
 	 . "/home/lesar/.ghcup/env"; # ghcup-env
@@ -60,7 +62,8 @@ if [ -d "$FNM_PATH" ]; then
   eval "`fnm env`"
 fi
 
-source $HOME/.local/bin/env
+[ -d "$HOME/.local/bin" ] && export PATH=$PATH:"$HOME/.local/bin"
+[ -s "$HOME/.local/bin/env" ] && source $HOME/.local/bin/env
 
 export EDITOR=nvim
 export GIT_EDITOR=nvim
