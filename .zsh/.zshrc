@@ -42,8 +42,6 @@ export JAVA_ROOT=~/.java
 if [[ -d $JAVA_ROOT ]]; then
 	export JAVA_VERSION=22.0.1;
 	export JAVA_HOME=$JAVA_ROOT/jdk-$JAVA_VERSION;
-	export MAVEN_VERSION=3.9.8;
-	export PATH=$PATH:$JAVA_HOME/bin:$JAVA_ROOT/apache-maven-$MAVEN_VERSION/bin;
 fi
 [ -d "$HOME/.maven/bin" ] && export PATH=$PATH:"$HOME/.maven/bin"
 [ -d "$HOME/.jdtls/bin" ] && export PATH=$PATH:"$HOME/.jdtls/bin"
