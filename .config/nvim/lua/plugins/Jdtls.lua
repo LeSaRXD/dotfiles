@@ -1,8 +1,8 @@
 local root_markers = {
+	"pom.xml",
 	".git",
 	"gradlew",
 	"mvnw",
-	"pom.xml",
 }
 local workspace_dir = vim.env.HOME .. "/.cache/jdtls/workspace"
 local config = {

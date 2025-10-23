@@ -32,8 +32,10 @@ bindkey "^[[1;5D" backward-word
 bindkey "^H" backward-kill-word
 bindkey "^[[3;5~" kill-word
 bindkey "^[v" .describe-key-briefly
-bindkey "^[OA" history-search-backward
-bindkey "^[OB" history-search-forward
+bindkey '^[[A' up-line-or-search
+bindkey '^[[B' down-line-or-search
+bindkey -a k up-line-or-search
+bindkey -a j down-line-or-search
 
 alias docker_up="docker compose up --build"
 alias docker_dev="docker compose -f compose.yaml -f compose.dev.yaml up --build"
