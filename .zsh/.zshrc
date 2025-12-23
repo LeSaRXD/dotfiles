@@ -40,10 +40,11 @@ bindkey -a j down-line-or-search
 alias docker_up="docker compose up --build"
 alias docker_dev="docker compose -f compose.yaml -f compose.dev.yaml up --build"
 
-export JAVA_ROOT=~/.java
+export JAVA_ROOT=$HOME/.java
 if [[ -d $JAVA_ROOT ]]; then
-	export JAVA_VERSION=22.0.1;
+	export JAVA_VERSION=$(cat $HOME/.zsh/java_ver);
 	export JAVA_HOME=$JAVA_ROOT/jdk-$JAVA_VERSION;
+	export PATH="$PATH:$JAVA_HOME/bin"
 fi
 [ -d "$HOME/.maven/bin" ] && export PATH=$PATH:"$HOME/.maven/bin"
 [ -d "$HOME/.jdtls/bin" ] && export PATH=$PATH:"$HOME/.jdtls/bin"
