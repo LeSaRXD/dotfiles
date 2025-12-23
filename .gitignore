@@ -1,3 +1,4 @@
 .zsh/.zcompdump
 .zsh/.history
 .zsh/java_ver
+.config/nvim/lazy-lock.json
