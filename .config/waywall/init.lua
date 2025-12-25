@@ -231,7 +231,7 @@ return {
 		["*-period"] = function()
 			return ModeManager:toggle("thin")
 		end,
-		["*-V"] = function()
+		["V"] = function()
 			return ModeManager:toggle("tall")
 		end,
 		["*-T"] = function()
