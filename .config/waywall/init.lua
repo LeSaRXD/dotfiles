@@ -241,7 +241,7 @@ return {
 			if ensure_ninbot() then
 				helpers.toggle_floating()
 			else
-				waywall.show_floating()
+				waywall.show_floating(true)
 			end
 		end,
 		["F11"] = waywall.toggle_fullscreen,
