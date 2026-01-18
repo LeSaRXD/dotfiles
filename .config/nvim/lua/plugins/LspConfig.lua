@@ -26,23 +26,16 @@ return {
 				map("gW", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Open Workspace Symbols")
 				map("grt", require("telescope.builtin").lsp_type_definitions, "[G]oto [T]ype Definition")
 
-				---@param client vim.lsp.Client
-				---@param method vim.lsp.protocol.Method
-				---@param bufnr? integer
-				---@return boolean
-				local function client_supports_method(client, method, bufnr)
-					return client:supports_method(method, bufnr)
+				local client = vim.lsp.get_client_by_id(event.data.client_id)
+				if client == nil then
+					return
 				end
 
-				local client = vim.lsp.get_client_by_id(event.data.client_id)
-				if
-					client
-					and client_supports_method(
-						client,
-						vim.lsp.protocol.Methods.textDocument_documentHighlight,
-						event.buf
-					)
-				then
+				function supports_method(method)
+					return client:supports_method(method, event.buf)
+				end
+
+				if supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
 					local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
 					vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 						buffer = event.buf,
@@ -65,10 +58,7 @@ return {
 					})
 				end
 
-				if
-					client
-					and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf)
-				then
+				if client and supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
 					map("<leader>th", function()
 						vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
 					end, "[T]oggle Inlay [H]ints")
@@ -90,7 +80,8 @@ return {
 				},
 			} or {},
 			virtual_text = {
-				source = "if_many",
+				-- source = "if_many",
+				source = false,
 				spacing = 2,
 				format = function(diagnostic)
 					local diagnostic_message = {
