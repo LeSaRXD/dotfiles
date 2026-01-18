@@ -17,8 +17,9 @@ set $right l
 set $term kitty
 set $menu rofi -show drun -modi drun
 set $browser firefox
-set $explorer dolphin
+set $explorer pcmanfm
 set $discord ~/.vesktop/vesktop
+set $steam steam
 # Set volume variables
 set $volume_change 2
 set $mic_change 2
@@ -69,8 +70,11 @@ input type:keyboard {
 	# Start file explorer
 	bindsym $mod+e exec $explorer
 
-	# Start file explorer
+	# Start discord
 	bindsym $mod+d exec $discord
+
+	# Start steam
+	bindsym $mod+s exec $steam
 
 	# Kill focused window
 	bindsym $mod+Shift+q kill
