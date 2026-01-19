@@ -10,6 +10,16 @@ setopt hist_save_no_dups
 
 set -o vi
 
+bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5D" backward-word
+bindkey "^H" backward-kill-word
+bindkey "^[[3;5~" kill-word
+bindkey "^[v" .describe-key-briefly
+bindkey '^[[A' up-line-or-search
+bindkey '^[[B' down-line-or-search
+bindkey -a k up-line-or-search
+bindkey -a j down-line-or-search
+
 alias fuck='sudo $(fc -ln -1)'
 
 if type starship > /dev/null; then
@@ -27,45 +37,42 @@ else
 	alias ll="ls -laF";
 fi
 
-bindkey "^[[1;5C" forward-word
-bindkey "^[[1;5D" backward-word
-bindkey "^H" backward-kill-word
-bindkey "^[[3;5~" kill-word
-bindkey "^[v" .describe-key-briefly
-bindkey '^[[A' up-line-or-search
-bindkey '^[[B' down-line-or-search
-bindkey -a k up-line-or-search
-bindkey -a j down-line-or-search
-
 alias docker_up="docker compose up --build"
 alias docker_dev="docker compose -f compose.yaml -f compose.dev.yaml up --build"
 
+function prepend_path () {
+	[[ -d $1 ]] && [[ :$PATH: != *:$1:* ]] && export PATH=$1:$PATH
+}
+
 export JAVA_ROOT=$HOME/.java
 if [[ -d $JAVA_ROOT ]]; then
-	export JAVA_VERSION=$(cat $HOME/.zsh/java_ver);
-	export JAVA_HOME=$JAVA_ROOT/jdk-$JAVA_VERSION;
-	export PATH="$PATH:$JAVA_HOME/bin"
+	export JAVA_VERSION=$(cat $HOME/.zsh/java_ver)
+	export JAVA_HOME=$JAVA_ROOT/jdk-$JAVA_VERSION
+	prepend_path "$JAVA_HOME/bin"
 fi
-[ -d "$HOME/.maven/bin" ] && export PATH=$PATH:"$HOME/.maven/bin"
-[ -d "$HOME/.jdtls/bin" ] && export PATH=$PATH:"$HOME/.jdtls/bin"
+prepend_path "$HOME/.maven/bin"
+prepend_path "$HOME/.jdtls/bin"
 
 if [[ -f "/home/lesar/.ghcup/env" ]]; then
 	 . "/home/lesar/.ghcup/env"; # ghcup-env
 fi
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[[ -s "$NVM_DIR/nvm.sh" ]] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[[ -s "$NVM_DIR/bash_completion" ]] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 # fnm
-FNM_PATH="/home/lesar/.local/share/fnm"
-if [ -d "$FNM_PATH" ]; then
-  export PATH="/home/lesar/.local/share/fnm:$PATH"
+FNM_PATH="$HOME/.local/share/fnm"
+if [[ -d "$FNM_PATH" ]]; then
+  export PATH="/home/lesar/.local/share/fnm":$PATH
   eval "`fnm env`"
 fi
 
-[ -d "$HOME/.local/bin" ] && export PATH=$PATH:"$HOME/.local/bin"
-[ -s "$HOME/.local/bin/env" ] && source $HOME/.local/bin/env
+prepend_path "$HOME/.local/bin"
+[[ -s "$HOME/.local/bin/env" ]] && source $HOME/.local/bin/env
 
 export EDITOR=nvim
 export GIT_EDITOR=nvim
-export GODOT4_BIN=$HOME/godot-4_4_1
+
+if [[ $TTY = /dev/tty1 ]]; then
+	./.local/bin/sway.sh
+fi
