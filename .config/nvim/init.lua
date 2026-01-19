@@ -95,6 +95,7 @@ vim.keymap.set("n", "<C-k>", "<C-u>")
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
 -- Diagnostic keymaps
+vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, { desc = "Code [A]ctions" })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
 -- Terminal exit keymap
