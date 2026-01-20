@@ -109,11 +109,23 @@ return {
 							callSnippet = "Replace",
 						},
 					},
+					diagnostics = {
+						globals = { "vim" },
+					},
 				},
 			},
 			ruff = {
 				init_opitons = {
 					settings = {},
+				},
+			},
+			clangd = {
+				settings = {
+					root_markers = {
+						"Makefile",
+						"CMakeLists",
+						".git",
+					},
 				},
 			},
 		}
