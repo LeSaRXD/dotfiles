@@ -1,8 +1,8 @@
 local root_markers = {
 	"pom.xml",
-	".git",
 	"gradlew",
 	"mvnw",
+	".git",
 }
 local workspace_dir = vim.env.HOME .. "/.cache/jdtls/workspace"
 local config = {
@@ -12,8 +12,8 @@ local config = {
 		"-data",
 		workspace_dir,
 	},
-	root_markers = root_markers,
 	settings = {
+		root_markers = root_markers,
 		java = {
 			auto_install = false,
 		},
@@ -32,7 +32,4 @@ vim.api.nvim_create_autocmd("FileType", {
 
 return {
 	"mfussenegger/nvim-jdtls",
-	config = function()
-		vim.lsp.enable("jdtls")
-	end,
 }
