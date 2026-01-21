@@ -114,18 +114,19 @@ return {
 					},
 				},
 			},
-			ruff = {
-				init_opitons = {
-					settings = {},
+			jedi_language_server = {
+				root_markers = {
+					"main.py",
+					"requirements.txt",
+					{ "venv", ".venv" },
+					".git",
 				},
 			},
 			clangd = {
-				settings = {
-					root_markers = {
-						"Makefile",
-						"CMakeLists",
-						".git",
-					},
+				root_markers = {
+					"Makefile",
+					"CMakeLists",
+					".git",
 				},
 			},
 		}
