@@ -15,7 +15,7 @@ set $up k
 set $right l
 # Set preferred programs
 set $term kitty
-set $menu rofi -show drun -modi drun
+set $menu rofi -show drun combi
 set $browser firefox
 set $explorer pcmanfm
 set $discord ~/.vesktop/vesktop
