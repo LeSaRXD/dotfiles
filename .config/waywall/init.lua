@@ -156,9 +156,17 @@ scene:register("eye_overlay", {
 	groups = { "tall" },
 })
 
-local function guard()
-	local state = waywall.state()
-	return ModeManager.active or not waywall.get_key("F3") and state.screen == "inworld" and state.inworld == "unpaused"
+local function guard(f3_safe, menu_safe)
+	return function()
+		local state = waywall.state()
+		if f3_safe and waywall.get_key("F3") then
+			return false
+		end
+		if menu_safe and not ModeManager.active and (state.screen ~= "inworld" or state.inworld ~= "unpaused") then
+			return false
+		end
+		return true
+	end
 end
 
 ModeManager:define("thin", {
@@ -170,7 +178,7 @@ ModeManager:define("thin", {
 	on_exit = function()
 		scene:enable_group("thin", false)
 	end,
-	toggle_guard = guard,
+	toggle_guard = guard(false, true),
 })
 
 ModeManager:define("tall", {
@@ -184,7 +192,7 @@ ModeManager:define("tall", {
 		scene:enable_group("tall", false)
 		waywall.set_sensitivity(normal_sens)
 	end,
-	-- toggle_guard = guard,
+	toggle_guard = guard(false, true),
 })
 
 ModeManager:define("wide", {
@@ -196,11 +204,12 @@ ModeManager:define("wide", {
 	on_exit = function()
 		scene:enable_group("wide", false)
 	end,
-	toggle_guard = guard,
+	toggle_guard = guard(false, true),
 })
 
 local home = os.getenv("HOME")
-local java = home .. "/.java/jdk-22.0.2+9/bin/java"
+local jdk_ver = os.getenv("JAVA_VERSION")
+local java = home .. "/.java/jdk-" .. jdk_ver .. "/bin/java"
 local ninbot_path = home .. "/mcsr/Ninjabrain-Bot-1.5.1.jar"
 local ensure_ninbot = Processes.ensure_application(
 	waywall,
