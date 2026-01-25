@@ -3,6 +3,7 @@ local M = {}
 local fns = {
 	["rs"] = { "cargo run", "cargo test" },
 	["java"] = { "mvn exec:java -q", "" },
+	["py"] = { "python3", "" },
 }
 
 local function cmd(index)
