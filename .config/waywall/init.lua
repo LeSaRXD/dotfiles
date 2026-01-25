@@ -156,6 +156,11 @@ scene:register("eye_overlay", {
 	groups = { "tall" },
 })
 
+local function guard()
+	local state = waywall.state()
+	return ModeManager.active or not waywall.get_key("F3") and state.screen == "inworld" and state.inworld == "unpaused"
+end
+
 ModeManager:define("thin", {
 	width = 340,
 	height = 1080,
@@ -165,6 +170,7 @@ ModeManager:define("thin", {
 	on_exit = function()
 		scene:enable_group("thin", false)
 	end,
+	toggle_guard = guard,
 })
 
 ModeManager:define("tall", {
@@ -178,9 +184,7 @@ ModeManager:define("tall", {
 		scene:enable_group("tall", false)
 		waywall.set_sensitivity(normal_sens)
 	end,
-	toggle_guard = function()
-		return not waywall.get_key("F3")
-	end,
+	-- toggle_guard = guard,
 })
 
 ModeManager:define("wide", {
@@ -192,6 +196,7 @@ ModeManager:define("wide", {
 	on_exit = function()
 		scene:enable_group("wide", false)
 	end,
+	toggle_guard = guard,
 })
 
 local home = os.getenv("HOME")
@@ -203,6 +208,18 @@ local ensure_ninbot = Processes.ensure_application(
 	{ java, "-jar", "-Dswing.aatext=TRUE", "-Dawt.useSystemAAFontSettings=on", ninbot_path }
 )
 
+local remaps = {
+	["Q"] = "F3",
+	["Y"] = "0",
+	["H"] = "1",
+	["D"] = "N",
+	["A"] = "O",
+	["1"] = "home",
+	["4"] = "P",
+	["leftalt"] = "rightshift",
+}
+local remaps_text = nil
+
 return {
 	input = {
 		layout = "us",
@@ -210,11 +227,7 @@ return {
 		repeat_delay = 200,
 		sensitivity = normal_sens,
 		confine_pointer = false,
-		remaps = {
-			["Q"] = "F3",
-			["Y"] = "0",
-			["leftalt"] = "rightshift",
-		},
+		remaps = remaps,
 	},
 	theme = {
 		background = bg_color,
@@ -245,5 +258,15 @@ return {
 			end
 		end,
 		["F11"] = waywall.toggle_fullscreen,
+		["Delete"] = function()
+			if remaps_text == nil then
+				waywall.set_remaps({})
+				remaps_text = waywall.text("Remaps disabled", { x = 50, y = 50 })
+			else
+				waywall.set_remaps(remaps)
+				remaps_text:close()
+				remaps_text = nil
+			end
+		end,
 	}),
 }
