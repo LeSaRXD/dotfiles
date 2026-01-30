@@ -154,4 +154,4 @@ require("lazy").setup({
 	},
 })
 
--- vim: ts=2 sts=2 sw=2 net
+-- vim: ts=2 sts=2 sw=2
