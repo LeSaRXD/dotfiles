@@ -192,7 +192,7 @@ ModeManager:define("tall", {
 		scene:enable_group("tall", false)
 		waywall.set_sensitivity(normal_sens)
 	end,
-	toggle_guard = guard(false, true),
+	-- toggle_guard = guard(false, false),
 })
 
 ModeManager:define("wide", {
@@ -224,7 +224,7 @@ local remaps = {
 	["D"] = "N",
 	["A"] = "O",
 	["1"] = "home",
-	["4"] = "P",
+	["6"] = "P",
 	["leftalt"] = "rightshift",
 }
 local remaps_text = nil
