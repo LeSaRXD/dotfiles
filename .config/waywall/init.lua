@@ -226,10 +226,11 @@ local remaps = {
 	["1"] = "home",
 	["6"] = "P",
 	["leftalt"] = "rightshift",
+	["N"] = "F23",
 }
 local remaps_text = nil
 
-return {
+local config = {
 	input = {
 		layout = "us",
 		repeat_rate = 30,
@@ -251,12 +252,15 @@ return {
 	},
 	actions = Keys.actions({
 		["*-period"] = function()
+			if remaps_text ~= nil then return false end
 			return ModeManager:toggle("thin")
 		end,
 		["V"] = function()
+			if remaps_text ~= nil then return false end
 			return ModeManager:toggle("tall")
 		end,
 		["*-T"] = function()
+			if remaps_text ~= nil then return false end
 			return ModeManager:toggle("wide")
 		end,
 		["*-F9"] = function()
@@ -277,5 +281,12 @@ return {
 				remaps_text = nil
 			end
 		end,
+		["grave"] = function()
+			if remaps_text ~= nil then return false end
+			local state = waywall.state()
+			return (state.screen == "inworld" and state.inworld == "unpaused")
+		end
 	}),
 }
+
+return config
