@@ -229,6 +229,17 @@ local remaps = {
 	["N"] = "F23",
 }
 local remaps_text = nil
+local toggle_remaps = function()
+	if remaps_text == nil then
+		waywall.set_remaps({})
+		remaps_text = waywall.text("Remaps disabled", { x = 50, y = 50 })
+	else
+		waywall.set_remaps(remaps)
+		remaps_text:close()
+		remaps_text = nil
+	end
+end
+
 
 local config = {
 	input = {
@@ -270,21 +281,20 @@ local config = {
 				waywall.show_floating(true)
 			end
 		end,
-		["F11"] = waywall.toggle_fullscreen,
-		["Delete"] = function()
-			if remaps_text == nil then
-				waywall.set_remaps({})
-				remaps_text = waywall.text("Remaps disabled", { x = 50, y = 50 })
-			else
-				waywall.set_remaps(remaps)
-				remaps_text:close()
-				remaps_text = nil
-			end
-		end,
-		["grave"] = function()
+		["*-F11"] = waywall.toggle_fullscreen,
+		["*-Delete"] = toggle_remaps,
+		["*-grave"] = function()
 			if remaps_text ~= nil then return false end
 			local state = waywall.state()
 			return (state.screen == "inworld" and state.inworld == "unpaused")
+		end,
+		["*-return"] = function()
+			toggle_remaps()
+			if remaps_text == nil then
+				return false
+			else
+				waywall.press_key("grave")
+			end
 		end
 	}),
 }
