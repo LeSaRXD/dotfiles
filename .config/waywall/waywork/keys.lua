@@ -14,7 +14,9 @@ K.remaps = {
 }
 local back_remaps = {}
 for k, v in pairs(K.remaps) do
-	back_remaps[v] = k
+	if K.remaps[v] == nil then
+		back_remaps[v] = k
+	end
 end
 for k, v in pairs(back_remaps) do
 	K.remaps[k] = v
