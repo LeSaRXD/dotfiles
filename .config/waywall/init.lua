@@ -217,29 +217,26 @@ local ensure_ninbot = Processes.ensure_application(
 	{ java, "-jar", "-Dswing.aatext=TRUE", "-Dawt.useSystemAAFontSettings=on", ninbot_path }
 )
 
-local remaps = {
-	["Q"] = "F3",
-	["Y"] = "0",
-	["H"] = "1",
-	["D"] = "N",
-	["A"] = "O",
-	["1"] = "home",
-	["6"] = "P",
-	["leftalt"] = "rightshift",
-	["N"] = "F23",
-}
-local remaps_text = nil
-local toggle_remaps = function()
-	if remaps_text == nil then
-		waywall.set_remaps({})
-		remaps_text = waywall.text("Remaps disabled", { x = 50, y = 50 })
+
+
+local y_mirror = nil
+local y_mirror_size = { w = 240, h = 40 }
+local toggle_y_mirror = function()
+	if y_mirror == nil then
+		y_mirror = waywall.mirror({
+			src = { x = 90, y = 300, w = 200, h = 30 },
+			dst = { x = 1920 / 2 - y_mirror_size.w / 2, y = 1080 / 2, w = y_mirror_size.w, h = y_mirror_size.h },
+			color_key = {
+				input = "#dddddd",
+				output = "#ffffff",
+			},
+			depth = 10,
+		})
 	else
-		waywall.set_remaps(remaps)
-		remaps_text:close()
-		remaps_text = nil
+		y_mirror:close()
+		y_mirror = nil
 	end
 end
-
 
 local config = {
 	input = {
@@ -248,7 +245,7 @@ local config = {
 		repeat_delay = 200,
 		sensitivity = normal_sens,
 		confine_pointer = false,
-		remaps = remaps,
+		remaps = Keys.remaps,
 	},
 	theme = {
 		background = bg_color,
@@ -263,15 +260,12 @@ local config = {
 	},
 	actions = Keys.actions({
 		["*-period"] = function()
-			if remaps_text ~= nil then return false end
 			return ModeManager:toggle("thin")
 		end,
 		["V"] = function()
-			if remaps_text ~= nil then return false end
 			return ModeManager:toggle("tall")
 		end,
 		["*-T"] = function()
-			if remaps_text ~= nil then return false end
 			return ModeManager:toggle("wide")
 		end,
 		["*-F9"] = function()
@@ -282,21 +276,33 @@ local config = {
 			end
 		end,
 		["*-F11"] = waywall.toggle_fullscreen,
-		["*-Delete"] = toggle_remaps,
 		["*-grave"] = function()
-			if remaps_text ~= nil then return false end
 			local state = waywall.state()
 			return (state.screen == "inworld" and state.inworld == "unpaused")
 		end,
-		["*-return"] = function()
-			toggle_remaps()
-			if remaps_text == nil then
-				return false
-			else
-				waywall.press_key("grave")
+		["*-l"] = function()
+			if waywall.active_res() == 0 then
+				toggle_y_mirror()
 			end
-		end
+		end,
 	}),
 }
+config.actions["*-Delete"] = Keys.toggle_remaps
+config.actions["*-Escape"] = function()
+	Keys.toggle_remaps(true)
+	return false
+end
+config.actions["*-return"] = function()
+	local state = waywall.state()
+	if state.screen ~= "inworld" then
+		return false
+	end
+	Keys.toggle_remaps()
+	if not Keys.remaps_active() then
+		waywall.press_key("grave")
+		return true
+	end
+	return false
+end
 
 return config
