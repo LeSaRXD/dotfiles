@@ -225,7 +225,7 @@ local toggle_y_mirror = function()
 	if y_mirror == nil then
 		y_mirror = waywall.mirror({
 			src = { x = 90, y = 300, w = 200, h = 30 },
-			dst = { x = 1920 / 2 - y_mirror_size.w / 2, y = 1080 / 2, w = y_mirror_size.w, h = y_mirror_size.h },
+			dst = { x = 1920 / 2 - y_mirror_size.w / 2, y = 1080 / 2 + 10, w = y_mirror_size.w, h = y_mirror_size.h },
 			color_key = {
 				input = "#dddddd",
 				output = "#ffffff",
