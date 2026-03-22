@@ -238,6 +238,24 @@ local toggle_y_mirror = function()
 	end
 end
 
+local f3c_count = 0
+local reset_f3c = function()
+	f3c_count = 0
+	waywall.show_floating(false)
+end
+local register_f3c = function()
+	f3c_count = f3c_count + 1
+	if f3c_count <= 0 then
+		print("Invalid state!! f3c_count = " .. f3c_count)
+	elseif f3c_count == 1 then
+		local f3c_text = waywall.text("Home portal\ncoords saved", { x = 1650, y = 600, color = "#ffffff", size = 2 })
+		waywall.sleep(3000)
+		f3c_text:close()
+	elseif f3c_count >= 2 then
+		waywall.show_floating(true)
+	end
+end
+
 local config = {
 	input = {
 		layout = "us",
@@ -284,6 +302,16 @@ local config = {
 			if waywall.active_res() == 0 then
 				toggle_y_mirror()
 			end
+		end,
+		["*-c"] = function()
+			if waywall.get_key("f3") then
+				register_f3c()
+			end
+			return false
+		end,
+		["*-bracketleft"] = function()
+			reset_f3c()
+			return false
 		end,
 	}),
 }
