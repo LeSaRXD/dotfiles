@@ -210,7 +210,8 @@ ModeManager:define("wide", {
 local home = os.getenv("HOME")
 local jdk_ver = os.getenv("JAVA_VERSION")
 local java = home .. "/.java/jdk-" .. jdk_ver .. "/bin/java"
-local ninbot_path = home .. "/mcsr/Ninjabrain-Bot-1.5.1.jar"
+local ninbot_ver = "1.5.2"
+local ninbot_path = home .. "/mcsr/Ninjabrain-Bot-" .. ninbot_ver .. ".jar"
 local ensure_ninbot = Processes.ensure_application(
 	waywall,
 	"[Nn]injabrain.*\\.jar",
