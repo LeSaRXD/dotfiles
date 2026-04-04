@@ -156,13 +156,16 @@ scene:register("eye_overlay", {
 	groups = { "tall" },
 })
 
-local function guard(f3_safe, menu_safe)
+local function guard(f3_safe, menu_safe, inv_safe)
 	return function()
 		local state = waywall.state()
 		if f3_safe and waywall.get_key("F3") then
 			return false
 		end
-		if menu_safe and not ModeManager.active and (state.screen ~= "inworld" or state.inworld ~= "unpaused") then
+		if menu_safe and not ModeManager.active and (state.screen ~= "inworld" or (state.screen == "inworld" and state.inworld == "paused")) then
+			return false
+		end
+		if inv_safe and not ModeManager.active and (state.screen == "inworld" and state.inworld == "menu") then
 			return false
 		end
 		return true
@@ -178,7 +181,7 @@ ModeManager:define("thin", {
 	on_exit = function()
 		scene:enable_group("thin", false)
 	end,
-	toggle_guard = guard(false, true),
+	toggle_guard = guard(true, true, true),
 })
 
 ModeManager:define("tall", {
@@ -192,7 +195,7 @@ ModeManager:define("tall", {
 		scene:enable_group("tall", false)
 		waywall.set_sensitivity(normal_sens)
 	end,
-	-- toggle_guard = guard(false, false),
+	toggle_guard = guard(false, false, true),
 })
 
 ModeManager:define("wide", {
@@ -204,7 +207,7 @@ ModeManager:define("wide", {
 	on_exit = function()
 		scene:enable_group("wide", false)
 	end,
-	toggle_guard = guard(false, true),
+	toggle_guard = guard(false, true, true),
 })
 
 local home = os.getenv("HOME")
@@ -221,11 +224,11 @@ local ensure_ninbot = Processes.ensure_application(
 
 
 local y_mirror = nil
-local y_mirror_size = { w = 240, h = 40 }
+local y_mirror_size = { w = 300, h = 40 }
 local toggle_y_mirror = function()
 	if y_mirror == nil then
 		y_mirror = waywall.mirror({
-			src = { x = 90, y = 300, w = 200, h = 30 },
+			src = { x = 90, y = 300, w = 240, h = 30 },
 			dst = { x = 1920 / 2 - y_mirror_size.w / 2, y = 1080 / 2 + 10, w = y_mirror_size.w, h = y_mirror_size.h },
 			color_key = {
 				input = "#dddddd",
@@ -278,20 +281,23 @@ local config = {
 		scene_add_text = true,
 	},
 	actions = Keys.actions({
-		["*-period"] = function()
+		["*-B"] = function()
 			return ModeManager:toggle("thin")
 		end,
-		["V"] = function()
+		["*-T"] = function()
 			return ModeManager:toggle("tall")
 		end,
-		["*-T"] = function()
+		["*-O"] = function()
 			return ModeManager:toggle("wide")
 		end,
 		["*-F9"] = function()
 			if ensure_ninbot() then
 				helpers.toggle_floating()
 			else
-				waywall.show_floating(true)
+				waywall.show_floating(false)
+				local ninbot_text = waywall.text("Opened ninbot", { x = 1650, y = 600, color = "#ffffff", size = 2 })
+				waywall.sleep(3000)
+				ninbot_text:close()
 			end
 		end,
 		["*-F11"] = waywall.toggle_fullscreen,
