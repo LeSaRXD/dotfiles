@@ -1,14 +1,26 @@
+@define-color text #F0F2EF;
+@define-color fg #38292f;
+@define-color fg2 #4f3d44;
+@define-color bg rgba(18, 14, 15, 0.999);
+@define-color alert #E55934;
+@define-color info #618985;
+
 * {
 	font-family: FontAwesome, 'JetBrainsMono Nerd Font', Roboto;
 	font-size: 14px;
-	color: #ffffff;
+	color: @text;
 
 	transition-property: background-color;
 	transition-duration: 0.5s;
 }
 
+*>menu {
+	background-color: @fg;
+}
+
 window#waybar {
-	background-color: rgba(5, 10, 10, 0.999);
+	background-color: @bg;
+
 	border-radius: 20px;
 	opacity: 0.9;
 }
@@ -32,7 +44,7 @@ window#waybar.hidden {
 
 #workspaces>button,
 #tray>widget>* {
-	background-color: rgba(60, 60, 60, 1);
+	background-color: @fg;
 	padding: 0 6px;
 	margin-right: 3px;
 	border-radius: 4px;
@@ -59,14 +71,14 @@ window#waybar.hidden {
 #tray>widget:hover>*,
 .modules-right>widget:hover>*,
 #custom-power:hover {
-	background-color: rgba(100, 100, 100, 1);
+	background-color: @fg2;
 }
 
 .modules-right>widget>*,
 #custom-power {
 	padding: 0 12px;
 	margin: 4px 0;
-	background-color: rgba(60, 60, 60, 1);
+	background-color: @fg;
 	border-radius: 20px;
 }
 
@@ -75,7 +87,7 @@ window#waybar.hidden {
 }
 
 #temperature.critical {
-	background-color: rgba(255, 20, 10, 0.2);
+	background-color: @alert;
 }
 
 #tray>.passive {
@@ -84,5 +96,5 @@ window#waybar.hidden {
 
 #tray>.needs-attention {
 	-gtk-icon-effect: highlight;
-	background-color: rgba(255, 255, 100, 0.2);
+	background-color: @info;
 }
