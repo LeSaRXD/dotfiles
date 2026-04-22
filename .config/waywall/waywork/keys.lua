@@ -3,14 +3,10 @@ local K = {}
 
 K.remaps = {
 	["Q"] = "F3",
-	["Z"] = "0",
-	["V"] = "1",
-	["D"] = "N",
-	["A"] = "O",
+	["Y"] = "0",
+	["H"] = "1",
 	["1"] = "home",
-	["6"] = "P",
 	["leftalt"] = "rightshift",
-	["N"] = "F23",
 }
 local back_remaps = {}
 for k, v in pairs(K.remaps) do
@@ -33,10 +29,22 @@ function K.toggle_remaps(toggle)
 	end
 	if toggle and not K.remaps_active() then
 		waywall.set_remaps(K.remaps)
+		waywall.set_keymap({
+			layout = "mc",
+			rules = nil,
+			variant = "basic",
+			options = nil,
+		})
 		remaps_text:close()
 		remaps_text = nil
 	elseif not toggle and K.remaps_active() then
 		waywall.set_remaps({})
+		waywall.set_keymap({
+			layout = nil,
+			rules = nil,
+			variant = nil,
+			options = nil,
+		})
 		remaps_text = waywall.text("Remaps disabled", { x = 50, y = 50 })
 	end
 end

@@ -181,7 +181,7 @@ ModeManager:define("thin", {
 	on_exit = function()
 		scene:enable_group("thin", false)
 	end,
-	toggle_guard = guard(true, true, true),
+	toggle_guard = guard(false, true, true),
 })
 
 ModeManager:define("tall", {
@@ -262,7 +262,7 @@ end
 
 local config = {
 	input = {
-		layout = "us",
+		layout = "mc",
 		repeat_rate = 30,
 		repeat_delay = 200,
 		sensitivity = normal_sens,
@@ -281,13 +281,13 @@ local config = {
 		scene_add_text = true,
 	},
 	actions = Keys.actions({
-		["*-B"] = function()
+		["*-Period"] = function()
 			return ModeManager:toggle("thin")
 		end,
-		["*-T"] = function()
+		["*-V"] = function()
 			return ModeManager:toggle("tall")
 		end,
-		["*-O"] = function()
+		["*-Comma"] = function()
 			return ModeManager:toggle("wide")
 		end,
 		["*-F9"] = function()
@@ -305,12 +305,12 @@ local config = {
 			local state = waywall.state()
 			return (state.screen == "inworld" and state.inworld == "unpaused")
 		end,
-		["*-l"] = function()
+		["*-L"] = function()
 			if waywall.active_res() == 0 then
 				toggle_y_mirror()
 			end
 		end,
-		["*-c"] = function()
+		["*-C"] = function()
 			if waywall.get_key("f3") then
 				register_f3c()
 			end
@@ -327,7 +327,7 @@ config.actions["*-Escape"] = function()
 	Keys.toggle_remaps(true)
 	return false
 end
-config.actions["*-return"] = function()
+config.actions["*-Return"] = function()
 	local state = waywall.state()
 	if state.screen ~= "inworld" then
 		return false
