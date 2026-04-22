@@ -19,7 +19,7 @@ configuration {
 	combi-modi: "window,drun,run";
 	click-to-exit: true;
 	sorting-method: "levenshtein";
-	matching: "fuzzy";
+	matching: "prefix";
 	case-sensitive: false;
 	cycle: true;
 
