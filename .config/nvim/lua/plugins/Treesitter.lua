@@ -1,7 +1,8 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
+	lazy = false,
 	build = ":TSUpdate",
-	main = "nvim-treesitter.configs",
+	branch = "main",
 	opts = {
 		ensure_installed = {
 			"bash",
@@ -19,10 +20,10 @@ return {
 			"javascript",
 		},
 		auto_install = true,
-		highlight = {
-			enable = true,
-			additional_vim_regex_highlighting = { "ruby" },
-		},
+		-- highlight = {
+		-- 	enable = true,
+		-- 	additional_vim_regex_highlighting = { "ruby" },
+		-- },
 		indent = { enable = true, disable = { "ruby" } },
 	},
 }

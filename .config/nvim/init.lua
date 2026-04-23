@@ -65,25 +65,15 @@ vim.o.confirm = true
 -- Folding and indent
 vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
+vim.o.foldtext = ""
 vim.opt.fillchars:append({ fold = " " })
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
 	callback = function()
-		vim.opt.foldtext = ""
-		-- check if treesitter has parser
-		if require("nvim-treesitter.parsers").has_parser() then
-			-- use treesitter folding
-			vim.opt.foldmethod = "expr"
-			vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-		else
-			-- use alternative foldmethod
-			vim.opt.foldmethod = "syntax"
-		end
+		vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
+		vim.wo[0][0].foldmethod = "expr"
 	end,
 })
-
--- File type mappings
-vim.filetype.add({ extensions = { mcfunction = "conf" } })
 
 -- Keymaps
 
