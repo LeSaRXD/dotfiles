@@ -75,6 +75,11 @@ window#waybar.hidden {
 	padding-right: 8px;
 }
 
+#workspaces>button:first-child:last-child,
+#tray>widget:first-child:last-child>* {
+	border-radius: 20px;
+}
+
 #workspaces>button:hover,
 #tray>widget:hover>*,
 .modules-right>widget:hover>*,
