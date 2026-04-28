@@ -99,7 +99,7 @@ vim.keymap.set("n", "<down>", '<cmd>echo "Use j to move!"<CR>')
 
 -- Toggle keybinds
 vim.keymap.set("n", "<leader>tf", "<cmd>Neotree toggle<CR>", { desc = "[T]oggle [F]ile Tree" })
-vim.keymap.set("n", "<leader>tt", "<cmd>ToggleTerm<CR>", { desc = "[T]oggle [T]erminal" })
+vim.keymap.set("n", "<leader>tt", "<cmd>ToggleTerm dir=.<CR>", { desc = "[T]oggle [T]erminal" })
 
 -- Custom extensions
 local coderunner = require("extensions.Coderunner")
