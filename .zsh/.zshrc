@@ -72,6 +72,7 @@ prepend_path "$HOME/.local/bin"
 
 export EDITOR=nvim
 export GIT_EDITOR=nvim
+alias sunvim='sudo -E -s nvim'
 
 if [[ $TTY = /dev/tty1 ]]; then
 	./.local/bin/sway.sh
