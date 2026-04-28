@@ -15,6 +15,11 @@
 			</object>
 		</child>
 		<child>
+			<object class="GtkMenuItem" id="bios">
+				<property name="label"> BIOS</property>
+			</object>
+		</child>
+		<child>
 			<object class="GtkMenuItem" id="shutdown">
 				<property name="label">⏻ Shutdown</property>
 			</object>

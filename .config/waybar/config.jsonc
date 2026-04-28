@@ -144,6 +144,7 @@
 		"menu-actions": {
 			"shutdown": "shutdown 0",
 			"reboot": "reboot",
+			"bios": "systemctl reboot --firmware-setup",
 			"suspend": "systemctl suspend",
 		},
 	},
