@@ -75,6 +75,9 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 	end,
 })
 
+-- Current working dir
+vim.g.root_spec = { "cwd" }
+
 -- Keymaps
 
 -- Rebind move half page up/down to ctrl+J/K to match j and k
@@ -99,7 +102,7 @@ vim.keymap.set("n", "<down>", '<cmd>echo "Use j to move!"<CR>')
 
 -- Toggle keybinds
 vim.keymap.set("n", "<leader>tf", "<cmd>Neotree toggle<CR>", { desc = "[T]oggle [F]ile Tree" })
-vim.keymap.set("n", "<leader>tt", "<cmd>ToggleTerm dir=.<CR>", { desc = "[T]oggle [T]erminal" })
+vim.keymap.set("n", "<leader>tt", "<cmd>ToggleTerm<CR>", { desc = "[T]oggle [T]erminal" })
 
 -- Custom extensions
 local coderunner = require("extensions.Coderunner")
