@@ -252,9 +252,10 @@ local register_f3c = function()
 	if f3c_count <= 0 then
 		print("Invalid state!! f3c_count = " .. f3c_count)
 	elseif f3c_count == 1 then
-		local f3c_text = waywall.text("Home portal\ncoords saved", { x = 1650, y = 600, color = "#ffffff", size = 2 })
+		waywall.show_floating(true)
+		waywall.press_key("c")
 		waywall.sleep(3000)
-		f3c_text:close()
+		waywall.show_floating(false)
 	elseif f3c_count >= 2 then
 		waywall.show_floating(true)
 	end
@@ -328,10 +329,6 @@ config.actions["*-Escape"] = function()
 	return false
 end
 config.actions["*-Return"] = function()
-	local state = waywall.state()
-	if state.screen ~= "inworld" then
-		return false
-	end
 	Keys.toggle_remaps()
 	if not Keys.remaps_active() then
 		waywall.press_key("grave")
