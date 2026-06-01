@@ -67,13 +67,8 @@ vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
 vim.o.foldtext = ""
 vim.opt.fillchars:append({ fold = " " })
-
-vim.api.nvim_create_autocmd({ "FileType" }, {
-	callback = function()
-		vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
-		vim.wo[0][0].foldmethod = "expr"
-	end,
-})
+vim.wo.foldmethod = "expr"
+vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 
 -- Current working dir
 vim.g.root_spec = { "cwd" }
