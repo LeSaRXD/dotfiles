@@ -59,6 +59,9 @@ input type:keyboard {
 }
 
 ### Key bindings
+	# Suspend/lock
+	bindsym $mod+Shift+Backspace exec systemctl suspend
+
 	# Start a terminal
 	bindsym $mod+q exec $term
 
