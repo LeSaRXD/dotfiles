@@ -15,7 +15,7 @@ set $up k
 set $right l
 # Set preferred programs
 set $term kitty
-set $menu rofi -show drun combi
+set $menu rofi -drun-match-fields 'name' -disable-history -show drun combi
 set $browser firefox
 set $explorer thunar
 set $discord ~/.vesktop/vesktop

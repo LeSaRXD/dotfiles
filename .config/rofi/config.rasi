@@ -18,7 +18,7 @@ configuration {
 	sidebar-mode: false;
 	combi-modi: "window,drun,run";
 	click-to-exit: true;
-	sorting-method: "levenshtein";
+	sorting-method: "fzf";
 	matching: "prefix";
 	case-sensitive: false;
 	cycle: true;
