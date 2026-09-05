@@ -210,16 +210,26 @@ ModeManager:define("wide", {
 	toggle_guard = guard(false, true, true),
 })
 
-local home = os.getenv("HOME")
-local jdk_ver = os.getenv("JAVA_VERSION")
-local java = home .. "/.java/jdk-" .. jdk_ver .. "/bin/java"
+Home = os.getenv("HOME")
+Jdk_ver = os.getenv("JAVA_VERSION")
+Java = Home .. "/.java/jdk-" .. Jdk_ver .. "/bin/java"
 local ninbot_ver = "1.5.2"
-local ninbot_path = home .. "/mcsr/Ninjabrain-Bot-" .. ninbot_ver .. ".jar"
+local ninbot_path = Home .. "/mcsr/Ninjabrain-Bot-" .. ninbot_ver .. ".jar"
 local ensure_ninbot = Processes.ensure_application(
 	waywall,
 	"[Nn]injabrain.*\\.jar",
-	{ java, "-jar", "-Dswing.aatext=TRUE", "-Dawt.useSystemAAFontSettings=on", ninbot_path }
+	{ Java, "-jar", "-Dswing.aatext=TRUE", "-Dawt.useSystemAAFontSettings=on", ninbot_path }
 )
+
+local ninlink_ver = "1.1.0"
+local ninlink_path = Home .. "/mcsr/NinjaLink-" .. ninlink_ver .. ".jar"
+local ensure_ninlink = Processes.ensure_application(
+	waywall,
+	"[Nn]inja[Llink].*\\.jar",
+	{ Java, "-jar", "-Dswing.aatext=TRUE", "-Dawt.useSystemAAFontSettings=on", ninlink_path }
+)
+
+
 
 
 
@@ -299,6 +309,11 @@ local config = {
 				local ninbot_text = waywall.text("Opened ninbot", { x = 1650, y = 600, color = "#ffffff", size = 2 })
 				waywall.sleep(3000)
 				ninbot_text:close()
+			end
+		end,
+		["*-F10"] = function()
+			if not ensure_ninlink() then
+				ensure_ninlink()
 			end
 		end,
 		["*-F11"] = waywall.toggle_fullscreen,

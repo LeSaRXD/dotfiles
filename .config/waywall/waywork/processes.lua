@@ -70,8 +70,10 @@ function P.ensure_application(ww, pattern, args)
 	return function()
 		if not P.is_running(pattern) then
 			P.ww_exec_argv(ww, args)
+			print("running " .. pattern)
 			return false
 		else
+			print(pattern .. " already running")
 			return true
 		end
 	end
