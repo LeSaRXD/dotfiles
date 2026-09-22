@@ -210,15 +210,25 @@ ModeManager:define("wide", {
 	toggle_guard = guard(false, true, true),
 })
 
-Home = os.getenv("HOME")
+Home = os.getenv("HOME") or "/home"
 Jdk_ver = os.getenv("JAVA_VERSION")
 Java = Home .. "/.java/jdk-" .. Jdk_ver .. "/bin/java"
 local ninbot_ver = "1.5.2"
 local ninbot_path = Home .. "/mcsr/Ninjabrain-Bot-" .. ninbot_ver .. ".jar"
+
+local ninbot_tmp_path = Home .. "/mcsr/ninbot_save/" .. waywall.profile() .. "/"
+print("attempting to read " .. ninbot_tmp_path)
+local tmp_path_exists = os.rename(ninbot_tmp_path, ninbot_tmp_path) or false
+ninbot_tmp_path = tmp_path_exists and ninbot_tmp_path or "/tmp"
+
+print("ninbot save path: " .. ninbot_tmp_path)
 local ensure_ninbot = Processes.ensure_application(
 	waywall,
 	"[Nn]injabrain.*\\.jar",
-	{ Java, "-jar", "-Dswing.aatext=TRUE", "-Dawt.useSystemAAFontSettings=on", ninbot_path }
+	{ Java, "-jar",
+		"-Djava.io.tmpdir=" .. ninbot_tmp_path,
+		"-Dswing.aatext=TRUE", "-Dawt.useSystemAAFontSettings=on",
+		ninbot_path }
 )
 
 local ninlink_ver = "1.1.0"
