@@ -109,7 +109,7 @@ scene:register("bubble_overlay", {
 		dst = pie_dst,
 		depth = 5,
 	},
-	groups = { "thin", "tall" },
+	groups = is_aa and { "thin" } or { "thin", "tall" },
 })
 
 for name, colors in pairs(pie_colors) do
