@@ -10,6 +10,7 @@ local scene = Scene.SceneManager.new(waywall)
 local ModeManager = Modes.ModeManager.new(waywall)
 
 local waywall_config_path = os.getenv("HOME") .. "/.config/waywall"
+local is_aa = (waywall.profile() or ""):find("aa") ~= nil
 
 --[[
 celeste menu colors:
@@ -52,6 +53,8 @@ local tall_sens = 0.05
 local pie_dst = { x = 1200, y = 400, w = 340, h = 340 }
 local percent_dst = { x = 1280, y = 800, w = 34 * 6, h = 25 * 6 }
 local eye_dst = { x = 30, y = 340, w = 700, h = 400 }
+local eye_measure_w = 60
+local tall_width = is_aa and 1920 or 340
 
 local f3_root = { x = 1200, y = 150 }
 local f3_scale = 5
@@ -74,8 +77,8 @@ local function add_f3_scene(name, row, col, len, groups)
 	f3_root.y = f3_root.y + 9 * f3_scale
 end
 
-add_f3_scene("c_counter", 3, 0, 11, { "thin", "tall" })
-add_f3_scene("e_counter", 4, 0, 8, { "thin", "tall" })
+add_f3_scene("c_counter", 3, 0, 11, { "thin", })
+add_f3_scene("e_counter", 4, 0, 8, { "thin", })
 
 for _, name in ipairs({ "wide", "thin", "tall" }) do
 	scene:register(name .. "_bg", {
@@ -83,6 +86,7 @@ for _, name in ipairs({ "wide", "thin", "tall" }) do
 		path = waywall_config_path .. "/resources/" .. name .. "_bg.png",
 		options = {
 			dst = { x = 0, y = 0, w = 1920, h = 1080 },
+			depth = -100,
 		},
 		groups = { name },
 	})
@@ -94,6 +98,16 @@ scene:register("bubble", {
 	options = {
 		dst = pie_dst,
 		depth = -1,
+	},
+	groups = { "thin", "tall" },
+})
+
+scene:register("bubble_overlay", {
+	kind = "image",
+	path = waywall_config_path .. "/resources/bubble_pie_overlay.png",
+	options = {
+		dst = pie_dst,
+		depth = 5,
 	},
 	groups = { "thin", "tall" },
 })
@@ -112,7 +126,7 @@ for name, colors in pairs(pie_colors) do
 	scene:register("tall_pie_" .. name, {
 		kind = "mirror",
 		options = {
-			src = { x = 9, y = 15984, w = 321, h = 160 },
+			src = { x = tall_width - 331, y = 15984, w = 321, h = 160 },
 			dst = pie_dst,
 			color_key = { input = colors.pie, output = colors.out },
 		},
@@ -131,7 +145,7 @@ for name, colors in pairs(pie_colors) do
 	scene:register("tall_percent_" .. name, {
 		kind = "mirror",
 		options = {
-			src = { x = 247, y = 16163, w = 34, h = 25 },
+			src = { x = tall_width - 93, y = 16163, w = 34, h = 25 },
 			dst = percent_dst,
 			color_key = { input = colors.text, output = colors.out },
 			depth = 1,
@@ -143,7 +157,7 @@ end
 scene:register("eye_measure", {
 	kind = "mirror",
 	options = {
-		src = { x = 140, y = 7902, w = 60, h = 580 },
+		src = { x = (tall_width - eye_measure_w) / 2, y = 7902, w = eye_measure_w, h = 580 },
 		dst = eye_dst,
 	},
 	groups = { "tall" },
@@ -185,7 +199,7 @@ ModeManager:define("thin", {
 })
 
 ModeManager:define("tall", {
-	width = 340,
+	width = tall_width,
 	height = 16384,
 	on_enter = function()
 		scene:enable_group("tall", true)
@@ -216,7 +230,7 @@ Java = Home .. "/.java/jdk-" .. Jdk_ver .. "/bin/java"
 local ninbot_ver = "1.5.2"
 local ninbot_path = Home .. "/mcsr/Ninjabrain-Bot-" .. ninbot_ver .. ".jar"
 
-local ninbot_tmp_path = Home .. "/mcsr/ninbot_save/" .. waywall.profile() .. "/"
+local ninbot_tmp_path = Home .. "/mcsr/ninbot_save/" .. (waywall.profile() or "init") .. "/"
 print("attempting to read " .. ninbot_tmp_path)
 local tmp_path_exists = os.rename(ninbot_tmp_path, ninbot_tmp_path) or false
 ninbot_tmp_path = tmp_path_exists and ninbot_tmp_path or "/tmp"
